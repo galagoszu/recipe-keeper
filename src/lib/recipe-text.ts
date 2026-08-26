@@ -187,12 +187,13 @@ export function parseIngredientLine(raw: string): Ingredient | null {
   const fracMatch = line.match(/^([½¼¾⅓⅔])\s*/);
   const numMatch = line.match(/^(\d+(?:[.,]\d+)?)(?:\s*\/\s*(\d+))?\s*/);
   if (fracMatch) {
-    quantity = FRACTIONS[fracMatch[1]] ?? null;
-    line = line.slice(fracMatch[0].length);
+    quantity = FRACTIONS[fracMatch[1] ?? ""] ?? null;
+    line = line.slice(fracMatch[0]?.length ?? 0);
   } else if (numMatch) {
-    const a = parseFloat(numMatch[1].replace(",", "."));
-    quantity = numMatch[2] ? a / parseFloat(numMatch[2]) : a;
-    line = line.slice(numMatch[0].length);
+    const a = parseFloat((numMatch[1] ?? "0").replace(",", "."));
+    const b = numMatch[2] ? parseFloat(numMatch[2]) : null;
+    quantity = b ? a / b : a;
+    line = line.slice(numMatch[0]?.length ?? 0);
   }
 
   let unit = "";
@@ -208,8 +209,8 @@ export function parseIngredientLine(raw: string): Ingredient | null {
   let note: string | null = null;
   const noteMatch = name.match(/\(([^)]*)\)\s*$/);
   if (noteMatch) {
-    note = noteMatch[1].trim();
-    name = name.slice(0, noteMatch.index).trim();
+    note = (noteMatch[1] ?? "").trim();
+    name = name.slice(0, noteMatch.index ?? name.length).trim();
   }
   if (!name) return null;
   return { quantity, unit, name, note };
@@ -264,7 +265,7 @@ export function parseRecipeText(text: string): TextParseResult {
   }
 
   if (head.length) {
-    draft.title = head[0].replace(/^#+\s*/, "").replace(/[:.]$/, "").trim();
+    draft.title = (head[0] ?? "").replace(/^#+\s*/, "").replace(/[:.]$/, "").trim();
     if (head.length > 1) desc.unshift(...head.slice(1));
   }
   if (!draft.title) warnings.push("No se pudo detectar el nombre de la receta.");
@@ -314,7 +315,7 @@ export function suggestKeywords(title: string, ingredients: Ingredient[]): strin
     .split(/[\s,]+/)
     .map((w) => w.replace(/[^\p{L}\p{N}]/gu, ""))
     .filter((w) => w.length > 2 && !STOPWORDS.has(foldText(w)));
-  const ing = ingredients.slice(0, 4).map((i) => i.name.split(" ")[0]);
+  const ing = ingredients.slice(0, 4).map((i) => i.name.split(" ")[0] ?? "");
   return Array.from(new Set([...words, ...ing].map((w) => w.toLowerCase()).filter(Boolean))).slice(
     0,
     8,
