@@ -14,7 +14,225 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      categories: {
+        Row: {
+          id: string
+          name: string
+          position: number
+        }
+        Insert: {
+          id?: string
+          name: string
+          position?: number
+        }
+        Update: {
+          id?: string
+          name?: string
+          position?: number
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          book_name: string
+          created_at: string
+          id: string
+          owner_name: string
+          palette: string
+          updated_at: string
+          username: string
+        }
+        Insert: {
+          book_name?: string
+          created_at?: string
+          id: string
+          owner_name?: string
+          palette?: string
+          updated_at?: string
+          username: string
+        }
+        Update: {
+          book_name?: string
+          created_at?: string
+          id?: string
+          owner_name?: string
+          palette?: string
+          updated_at?: string
+          username?: string
+        }
+        Relationships: []
+      }
+      recipe_comments: {
+        Row: {
+          body: string
+          created_at: string
+          entry_date: string
+          id: string
+          owner_id: string
+          recipe_id: string
+        }
+        Insert: {
+          body: string
+          created_at?: string
+          entry_date?: string
+          id?: string
+          owner_id: string
+          recipe_id: string
+        }
+        Update: {
+          body?: string
+          created_at?: string
+          entry_date?: string
+          id?: string
+          owner_id?: string
+          recipe_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "recipe_comments_recipe_id_fkey"
+            columns: ["recipe_id"]
+            isOneToOne: false
+            referencedRelation: "recipes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      recipe_ingredients: {
+        Row: {
+          created_at: string
+          id: string
+          name: string
+          note: string | null
+          owner_id: string
+          position: number
+          quantity: number | null
+          recipe_id: string
+          unit: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          name: string
+          note?: string | null
+          owner_id: string
+          position?: number
+          quantity?: number | null
+          recipe_id: string
+          unit?: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          name?: string
+          note?: string | null
+          owner_id?: string
+          position?: number
+          quantity?: number | null
+          recipe_id?: string
+          unit?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "recipe_ingredients_recipe_id_fkey"
+            columns: ["recipe_id"]
+            isOneToOne: false
+            referencedRelation: "recipes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      recipes: {
+        Row: {
+          category: string
+          created_at: string
+          description: string
+          id: string
+          image_url: string | null
+          instructions: string
+          keywords: string[]
+          origin_history: Json
+          origin_type: string
+          original_author_id: string | null
+          original_author_name: string
+          owner_id: string
+          shared_by_name: string | null
+          source_note: string | null
+          status: string
+          subcategory: string
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          category?: string
+          created_at?: string
+          description?: string
+          id?: string
+          image_url?: string | null
+          instructions?: string
+          keywords?: string[]
+          origin_history?: Json
+          origin_type?: string
+          original_author_id?: string | null
+          original_author_name?: string
+          owner_id: string
+          shared_by_name?: string | null
+          source_note?: string | null
+          status?: string
+          subcategory?: string
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          category?: string
+          created_at?: string
+          description?: string
+          id?: string
+          image_url?: string | null
+          instructions?: string
+          keywords?: string[]
+          origin_history?: Json
+          origin_type?: string
+          original_author_id?: string | null
+          original_author_name?: string
+          owner_id?: string
+          shared_by_name?: string | null
+          source_note?: string | null
+          status?: string
+          subcategory?: string
+          title?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      subcategories: {
+        Row: {
+          category_id: string
+          id: string
+          name: string
+          position: number
+        }
+        Insert: {
+          category_id: string
+          id?: string
+          name: string
+          position?: number
+        }
+        Update: {
+          category_id?: string
+          id?: string
+          name?: string
+          position?: number
+        }
+        Relationships: [
+          {
+            foreignKeyName: "subcategories_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
