@@ -147,7 +147,7 @@ function RecipeDetail() {
       back
       action={
         <Link
-          to="/receta/$id/editar"
+          to="/editar/$id"
           params={{ id: recipe.id }}
           aria-label="Editar receta"
           className="grid size-10 shrink-0 place-items-center rounded-full bg-secondary text-ink hover:bg-accent"
