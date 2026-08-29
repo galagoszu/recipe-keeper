@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AgregarRouteImport } from './routes/agregar'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as PerfilRouteImport } from './routes/perfil'
+import { Route as RecetaNuevaRouteImport } from './routes/receta.nueva'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -34,18 +35,25 @@ const PerfilRoute = PerfilRouteImport.update({
   path: '/perfil',
   getParentRoute: () => rootRouteImport,
 } as any)
+const RecetaNuevaRoute = RecetaNuevaRouteImport.update({
+  id: '/receta/nueva',
+  path: '/receta/nueva',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/agregar': typeof AgregarRoute
   '/auth': typeof AuthRoute
   '/perfil': typeof PerfilRoute
+  '/receta/nueva': typeof RecetaNuevaRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/agregar': typeof AgregarRoute
   '/auth': typeof AuthRoute
   '/perfil': typeof PerfilRoute
+  '/receta/nueva': typeof RecetaNuevaRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -53,13 +61,14 @@ export interface FileRoutesById {
   '/agregar': typeof AgregarRoute
   '/auth': typeof AuthRoute
   '/perfil': typeof PerfilRoute
+  '/receta/nueva': typeof RecetaNuevaRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/agregar' | '/auth' | '/perfil'
+  fullPaths: '/' | '/agregar' | '/auth' | '/perfil' | '/receta/nueva'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/agregar' | '/auth' | '/perfil'
-  id: '__root__' | '/' | '/agregar' | '/auth' | '/perfil'
+  to: '/' | '/agregar' | '/auth' | '/perfil' | '/receta/nueva'
+  id: '__root__' | '/' | '/agregar' | '/auth' | '/perfil' | '/receta/nueva'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -67,6 +76,7 @@ export interface RootRouteChildren {
   AgregarRoute: typeof AgregarRoute
   AuthRoute: typeof AuthRoute
   PerfilRoute: typeof PerfilRoute
+  RecetaNuevaRoute: typeof RecetaNuevaRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -99,6 +109,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PerfilRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/receta/nueva': {
+      id: '/receta/nueva'
+      path: '/receta/nueva'
+      fullPath: '/receta/nueva'
+      preLoaderRoute: typeof RecetaNuevaRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -107,6 +124,7 @@ const rootRouteChildren: RootRouteChildren = {
   AgregarRoute: AgregarRoute,
   AuthRoute: AuthRoute,
   PerfilRoute: PerfilRoute,
+  RecetaNuevaRoute: RecetaNuevaRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
