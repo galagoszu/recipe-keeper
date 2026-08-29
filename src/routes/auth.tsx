@@ -273,17 +273,13 @@ function SignUpForm() {
           onChange={(e) => setEmail(e.target.value)}
         />
       </div>
-      <div className="space-y-1.5">
-        <Label htmlFor="up-pass">Contraseña</Label>
-        <Input
-          id="up-pass"
-          type="password"
-          autoComplete="new-password"
-          required
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </div>
+      <PasswordField
+        id="up-pass"
+        label="Contraseña"
+        autoComplete="new-password"
+        value={password}
+        onChange={setPassword}
+      />
       <div className="space-y-1.5">
         <Label htmlFor="up-book">Nombre del libro</Label>
         <Input
