@@ -117,17 +117,13 @@ function SignInForm() {
           onChange={(e) => setEmail(e.target.value)}
         />
       </div>
-      <div className="space-y-1.5">
-        <Label htmlFor="in-pass">Contraseña</Label>
-        <Input
-          id="in-pass"
-          type="password"
-          autoComplete="current-password"
-          required
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </div>
+      <PasswordField
+        id="in-pass"
+        label="Contraseña"
+        autoComplete="current-password"
+        value={password}
+        onChange={setPassword}
+      />
       <Button type="submit" className="h-12 w-full text-base" disabled={busy}>
         {busy ? "Entrando…" : "Entrar a mi libro"}
       </Button>
