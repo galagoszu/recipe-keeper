@@ -1,6 +1,7 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { toast } from "sonner";
+import { Eye, EyeOff } from "lucide-react";
 
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
@@ -116,17 +117,13 @@ function SignInForm() {
           onChange={(e) => setEmail(e.target.value)}
         />
       </div>
-      <div className="space-y-1.5">
-        <Label htmlFor="in-pass">Contraseña</Label>
-        <Input
-          id="in-pass"
-          type="password"
-          autoComplete="current-password"
-          required
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </div>
+      <PasswordField
+        id="in-pass"
+        label="Contraseña"
+        autoComplete="current-password"
+        value={password}
+        onChange={setPassword}
+      />
       <Button type="submit" className="h-12 w-full text-base" disabled={busy}>
         {busy ? "Entrando…" : "Entrar a mi libro"}
       </Button>
@@ -138,6 +135,46 @@ function SignInForm() {
         Olvidé mi contraseña
       </button>
     </form>
+  );
+}
+
+function PasswordField({
+  id,
+  label,
+  autoComplete,
+  value,
+  onChange,
+}: {
+  id: string;
+  label: string;
+  autoComplete: string;
+  value: string;
+  onChange: (value: string) => void;
+}) {
+  const [visible, setVisible] = useState(false);
+  return (
+    <div className="space-y-1.5">
+      <Label htmlFor={id}>{label}</Label>
+      <div className="relative">
+        <Input
+          id={id}
+          type={visible ? "text" : "password"}
+          autoComplete={autoComplete}
+          required
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          className="pr-10"
+        />
+        <button
+          type="button"
+          onClick={() => setVisible((v) => !v)}
+          className="absolute right-2.5 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground"
+          aria-label={visible ? "Ocultar contraseña" : "Mostrar contraseña"}
+        >
+          {visible ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
+        </button>
+      </div>
+    </div>
   );
 }
 
@@ -236,17 +273,13 @@ function SignUpForm() {
           onChange={(e) => setEmail(e.target.value)}
         />
       </div>
-      <div className="space-y-1.5">
-        <Label htmlFor="up-pass">Contraseña</Label>
-        <Input
-          id="up-pass"
-          type="password"
-          autoComplete="new-password"
-          required
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </div>
+      <PasswordField
+        id="up-pass"
+        label="Contraseña"
+        autoComplete="new-password"
+        value={password}
+        onChange={setPassword}
+      />
       <div className="space-y-1.5">
         <Label htmlFor="up-book">Nombre del libro</Label>
         <Input
