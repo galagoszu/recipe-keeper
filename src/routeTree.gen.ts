@@ -14,6 +14,7 @@ import { Route as AgregarRouteImport } from './routes/agregar'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as PerfilRouteImport } from './routes/perfil'
 import { Route as EditarIdRouteImport } from './routes/editar.$id'
+import { Route as ImportarArchivoRouteImport } from './routes/importar.archivo'
 import { Route as ImportarTextoRouteImport } from './routes/importar.texto'
 import { Route as RecetaIdRouteImport } from './routes/receta.$id'
 import { Route as RecetaNuevaRouteImport } from './routes/receta.nueva'
@@ -43,6 +44,11 @@ const EditarIdRoute = EditarIdRouteImport.update({
   path: '/editar/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ImportarArchivoRoute = ImportarArchivoRouteImport.update({
+  id: '/importar/archivo',
+  path: '/importar/archivo',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ImportarTextoRoute = ImportarTextoRouteImport.update({
   id: '/importar/texto',
   path: '/importar/texto',
@@ -65,6 +71,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/perfil': typeof PerfilRoute
   '/editar/$id': typeof EditarIdRoute
+  '/importar/archivo': typeof ImportarArchivoRoute
   '/importar/texto': typeof ImportarTextoRoute
   '/receta/$id': typeof RecetaIdRoute
   '/receta/nueva': typeof RecetaNuevaRoute
@@ -75,6 +82,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/perfil': typeof PerfilRoute
   '/editar/$id': typeof EditarIdRoute
+  '/importar/archivo': typeof ImportarArchivoRoute
   '/importar/texto': typeof ImportarTextoRoute
   '/receta/$id': typeof RecetaIdRoute
   '/receta/nueva': typeof RecetaNuevaRoute
@@ -86,6 +94,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/perfil': typeof PerfilRoute
   '/editar/$id': typeof EditarIdRoute
+  '/importar/archivo': typeof ImportarArchivoRoute
   '/importar/texto': typeof ImportarTextoRoute
   '/receta/$id': typeof RecetaIdRoute
   '/receta/nueva': typeof RecetaNuevaRoute
@@ -98,6 +107,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/perfil'
     | '/editar/$id'
+    | '/importar/archivo'
     | '/importar/texto'
     | '/receta/$id'
     | '/receta/nueva'
@@ -108,6 +118,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/perfil'
     | '/editar/$id'
+    | '/importar/archivo'
     | '/importar/texto'
     | '/receta/$id'
     | '/receta/nueva'
@@ -118,6 +129,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/perfil'
     | '/editar/$id'
+    | '/importar/archivo'
     | '/importar/texto'
     | '/receta/$id'
     | '/receta/nueva'
@@ -129,6 +141,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   PerfilRoute: typeof PerfilRoute
   EditarIdRoute: typeof EditarIdRoute
+  ImportarArchivoRoute: typeof ImportarArchivoRoute
   ImportarTextoRoute: typeof ImportarTextoRoute
   RecetaIdRoute: typeof RecetaIdRoute
   RecetaNuevaRoute: typeof RecetaNuevaRoute
@@ -171,6 +184,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EditarIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/importar/archivo': {
+      id: '/importar/archivo'
+      path: '/importar/archivo'
+      fullPath: '/importar/archivo'
+      preLoaderRoute: typeof ImportarArchivoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/importar/texto': {
       id: '/importar/texto'
       path: '/importar/texto'
@@ -201,6 +221,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   PerfilRoute: PerfilRoute,
   EditarIdRoute: EditarIdRoute,
+  ImportarArchivoRoute: ImportarArchivoRoute,
   ImportarTextoRoute: ImportarTextoRoute,
   RecetaIdRoute: RecetaIdRoute,
   RecetaNuevaRoute: RecetaNuevaRoute,
