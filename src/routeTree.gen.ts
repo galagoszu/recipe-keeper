@@ -14,6 +14,7 @@ import { Route as AgregarRouteImport } from './routes/agregar'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as PerfilRouteImport } from './routes/perfil'
 import { Route as EditarIdRouteImport } from './routes/editar.$id'
+import { Route as ImportarTextoRouteImport } from './routes/importar.texto'
 import { Route as RecetaIdRouteImport } from './routes/receta.$id'
 import { Route as RecetaNuevaRouteImport } from './routes/receta.nueva'
 
@@ -42,6 +43,11 @@ const EditarIdRoute = EditarIdRouteImport.update({
   path: '/editar/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ImportarTextoRoute = ImportarTextoRouteImport.update({
+  id: '/importar/texto',
+  path: '/importar/texto',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RecetaIdRoute = RecetaIdRouteImport.update({
   id: '/receta/$id',
   path: '/receta/$id',
@@ -59,6 +65,7 @@ export interface FileRoutesByFullPath {
   '/auth': typeof AuthRoute
   '/perfil': typeof PerfilRoute
   '/editar/$id': typeof EditarIdRoute
+  '/importar/texto': typeof ImportarTextoRoute
   '/receta/$id': typeof RecetaIdRoute
   '/receta/nueva': typeof RecetaNuevaRoute
 }
@@ -68,6 +75,7 @@ export interface FileRoutesByTo {
   '/auth': typeof AuthRoute
   '/perfil': typeof PerfilRoute
   '/editar/$id': typeof EditarIdRoute
+  '/importar/texto': typeof ImportarTextoRoute
   '/receta/$id': typeof RecetaIdRoute
   '/receta/nueva': typeof RecetaNuevaRoute
 }
@@ -78,6 +86,7 @@ export interface FileRoutesById {
   '/auth': typeof AuthRoute
   '/perfil': typeof PerfilRoute
   '/editar/$id': typeof EditarIdRoute
+  '/importar/texto': typeof ImportarTextoRoute
   '/receta/$id': typeof RecetaIdRoute
   '/receta/nueva': typeof RecetaNuevaRoute
 }
@@ -89,6 +98,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/perfil'
     | '/editar/$id'
+    | '/importar/texto'
     | '/receta/$id'
     | '/receta/nueva'
   fileRoutesByTo: FileRoutesByTo
@@ -98,6 +108,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/perfil'
     | '/editar/$id'
+    | '/importar/texto'
     | '/receta/$id'
     | '/receta/nueva'
   id:
@@ -107,6 +118,7 @@ export interface FileRouteTypes {
     | '/auth'
     | '/perfil'
     | '/editar/$id'
+    | '/importar/texto'
     | '/receta/$id'
     | '/receta/nueva'
   fileRoutesById: FileRoutesById
@@ -117,6 +129,7 @@ export interface RootRouteChildren {
   AuthRoute: typeof AuthRoute
   PerfilRoute: typeof PerfilRoute
   EditarIdRoute: typeof EditarIdRoute
+  ImportarTextoRoute: typeof ImportarTextoRoute
   RecetaIdRoute: typeof RecetaIdRoute
   RecetaNuevaRoute: typeof RecetaNuevaRoute
 }
@@ -158,6 +171,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EditarIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/importar/texto': {
+      id: '/importar/texto'
+      path: '/importar/texto'
+      fullPath: '/importar/texto'
+      preLoaderRoute: typeof ImportarTextoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/receta/$id': {
       id: '/receta/$id'
       path: '/receta/$id'
@@ -181,6 +201,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthRoute: AuthRoute,
   PerfilRoute: PerfilRoute,
   EditarIdRoute: EditarIdRoute,
+  ImportarTextoRoute: ImportarTextoRoute,
   RecetaIdRoute: RecetaIdRoute,
   RecetaNuevaRoute: RecetaNuevaRoute,
 }
