@@ -12,6 +12,7 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AgregarRouteImport } from './routes/agregar'
 import { Route as AuthRouteImport } from './routes/auth'
+import { Route as EscanearRouteImport } from './routes/escanear'
 import { Route as PerfilRouteImport } from './routes/perfil'
 import { Route as EditarIdRouteImport } from './routes/editar.$id'
 import { Route as ImportarArchivoRouteImport } from './routes/importar.archivo'
@@ -32,6 +33,11 @@ const AgregarRoute = AgregarRouteImport.update({
 const AuthRoute = AuthRouteImport.update({
   id: '/auth',
   path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EscanearRoute = EscanearRouteImport.update({
+  id: '/escanear',
+  path: '/escanear',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PerfilRoute = PerfilRouteImport.update({
@@ -69,6 +75,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/agregar': typeof AgregarRoute
   '/auth': typeof AuthRoute
+  '/escanear': typeof EscanearRoute
   '/perfil': typeof PerfilRoute
   '/editar/$id': typeof EditarIdRoute
   '/importar/archivo': typeof ImportarArchivoRoute
@@ -80,6 +87,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/agregar': typeof AgregarRoute
   '/auth': typeof AuthRoute
+  '/escanear': typeof EscanearRoute
   '/perfil': typeof PerfilRoute
   '/editar/$id': typeof EditarIdRoute
   '/importar/archivo': typeof ImportarArchivoRoute
@@ -92,6 +100,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/agregar': typeof AgregarRoute
   '/auth': typeof AuthRoute
+  '/escanear': typeof EscanearRoute
   '/perfil': typeof PerfilRoute
   '/editar/$id': typeof EditarIdRoute
   '/importar/archivo': typeof ImportarArchivoRoute
@@ -105,6 +114,7 @@ export interface FileRouteTypes {
     | '/'
     | '/agregar'
     | '/auth'
+    | '/escanear'
     | '/perfil'
     | '/editar/$id'
     | '/importar/archivo'
@@ -116,6 +126,7 @@ export interface FileRouteTypes {
     | '/'
     | '/agregar'
     | '/auth'
+    | '/escanear'
     | '/perfil'
     | '/editar/$id'
     | '/importar/archivo'
@@ -127,6 +138,7 @@ export interface FileRouteTypes {
     | '/'
     | '/agregar'
     | '/auth'
+    | '/escanear'
     | '/perfil'
     | '/editar/$id'
     | '/importar/archivo'
@@ -139,6 +151,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AgregarRoute: typeof AgregarRoute
   AuthRoute: typeof AuthRoute
+  EscanearRoute: typeof EscanearRoute
   PerfilRoute: typeof PerfilRoute
   EditarIdRoute: typeof EditarIdRoute
   ImportarArchivoRoute: typeof ImportarArchivoRoute
@@ -168,6 +181,13 @@ declare module '@tanstack/react-router' {
       path: '/auth'
       fullPath: '/auth'
       preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/escanear': {
+      id: '/escanear'
+      path: '/escanear'
+      fullPath: '/escanear'
+      preLoaderRoute: typeof EscanearRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/perfil': {
@@ -219,6 +239,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AgregarRoute: AgregarRoute,
   AuthRoute: AuthRoute,
+  EscanearRoute: EscanearRoute,
   PerfilRoute: PerfilRoute,
   EditarIdRoute: EditarIdRoute,
   ImportarArchivoRoute: ImportarArchivoRoute,
