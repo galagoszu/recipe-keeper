@@ -52,6 +52,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [queryClient]);
 
   const userId = session?.user.id ?? null;
+  const userMeta = session?.user.user_metadata as Record<string, string> | undefined;
 
   useEffect(() => {
     if (!userId) {
@@ -59,16 +60,35 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       return;
     }
     let active = true;
-    fetchProfile(userId)
-      .then((p) => {
-        if (!active) return;
-        setProfile(p);
-        if (p) applyPalette(p.palette);
-      })
-      .catch(() => undefined);
+
+    async function load() {
+      let p = await fetchProfile(userId!);
+      if (!p) {
+        // El perfil no se creó al registrarse (p. ej. confirmación de correo).
+        // Lo reconstruimos desde los metadatos guardados en la cuenta.
+        const meta = userMeta ?? {};
+        const fallback = session?.user.email?.split("@")[0] ?? "usuario";
+        const username = (meta["username"] || fallback).trim();
+        const ownerName = (meta["owner_name"] || "").trim();
+        const { error } = await supabase.from("profiles").insert({
+          id: userId!,
+          owner_name: ownerName,
+          username,
+          book_name: (meta["book_name"] || "").trim() || `Recetas de ${ownerName || username}`,
+          palette: (meta["palette"] as Profile["palette"]) || "verde",
+        });
+        if (!error) p = await fetchProfile(userId!);
+      }
+      if (!active) return;
+      setProfile(p);
+      if (p) applyPalette(p.palette);
+    }
+
+    load().catch(() => undefined);
     return () => {
       active = false;
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userId]);
 
   async function refreshProfile() {

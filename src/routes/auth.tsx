@@ -197,7 +197,15 @@ function SignUpForm() {
     const { data, error } = await supabase.auth.signUp({
       email: email.trim(),
       password,
-      options: { emailRedirectTo: window.location.origin },
+      options: {
+        emailRedirectTo: window.location.origin,
+        data: {
+          owner_name: ownerName.trim(),
+          username: username.trim(),
+          book_name: bookName.trim() || `Recetas de ${ownerName.trim() || username.trim()}`,
+          palette,
+        },
+      },
     });
 
     if (error) {
