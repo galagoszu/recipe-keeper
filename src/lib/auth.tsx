@@ -74,8 +74,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           id: userId!,
           owner_name: ownerName,
           username,
-          book_name: (meta.book_name || "").trim() || `Recetas de ${ownerName || username}`,
-          palette: (meta.palette as Profile["palette"]) || "verde",
+          book_name: (meta["book_name"] || "").trim() || `Recetas de ${ownerName || username}`,
+          palette: (meta["palette"] as Profile["palette"]) || "verde",
         });
         if (!error) p = await fetchProfile(userId!);
       }
