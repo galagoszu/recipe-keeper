@@ -51,7 +51,7 @@ export function AppShell({
             <button
               type="button"
               aria-label="Volver"
-              onClick={() => navigate({ to: "..", replace: false })}
+              onClick={() => navigate({ to: "/" })}
               className="-ml-1 grid size-10 shrink-0 place-items-center rounded-full text-ink hover:bg-secondary"
             >
               <ArrowLeft className="size-5" />
