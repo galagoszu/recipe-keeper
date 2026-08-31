@@ -68,8 +68,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         // Lo reconstruimos desde los metadatos guardados en la cuenta.
         const meta = userMeta ?? {};
         const fallback = session?.user.email?.split("@")[0] ?? "usuario";
-        const username = (meta.username || fallback).trim();
-        const ownerName = (meta.owner_name || "").trim();
+        const username = (meta["username"] || fallback).trim();
+        const ownerName = (meta["owner_name"] || "").trim();
         const { error } = await supabase.from("profiles").insert({
           id: userId!,
           owner_name: ownerName,
