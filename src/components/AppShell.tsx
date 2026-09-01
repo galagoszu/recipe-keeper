@@ -3,7 +3,7 @@ import { ArrowLeft, User } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 
 import { useAuth } from "@/lib/auth";
-import appIcon from "@/assets/grimorio-icon.png.asset.json";
+import { BrandMark } from "@/components/BrandMark";
 
 export function ConnectionBadge() {
   const [online, setOnline] = useState(true);
