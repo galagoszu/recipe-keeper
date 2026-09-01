@@ -11,7 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PALETTES, applyPalette, type PaletteId } from "@/lib/palettes";
 import { useAuth } from "@/lib/auth";
 import { cn } from "@/lib/utils";
-import appIcon from "@/assets/grimorio-icon.png.asset.json";
+import { AppIcon } from "@/components/AppIcon";
 
 export const Route = createFileRoute("/auth")({
   head: () => ({
@@ -44,12 +44,10 @@ function AuthPage() {
     <div className="min-h-screen bg-background">
       <div className="page pt-12">
         <div className="mb-8 text-center">
-          <img
-            src={appIcon.url}
+          <AppIcon
+            size={112}
             alt="Icono de Grimorio Dev: libro antiguo con circuitos y gorro de chef"
             className="mx-auto size-28 rounded-2xl shadow-card"
-            width={112}
-            height={112}
           />
           <h1 className="mt-3 text-3xl font-bold">Grimorio Dev</h1>
           <p className="reading mx-auto mt-2 text-sm text-muted-foreground">
