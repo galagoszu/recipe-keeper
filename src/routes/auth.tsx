@@ -11,6 +11,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { PALETTES, applyPalette, type PaletteId } from "@/lib/palettes";
 import { useAuth } from "@/lib/auth";
 import { cn } from "@/lib/utils";
+import appIcon from "@/assets/grimorio-icon.png.asset.json";
 
 export const Route = createFileRoute("/auth")({
   head: () => ({
