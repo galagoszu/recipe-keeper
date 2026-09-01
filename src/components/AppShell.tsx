@@ -3,7 +3,7 @@ import { ArrowLeft, User } from "lucide-react";
 import { useEffect, useState, type ReactNode } from "react";
 
 import { useAuth } from "@/lib/auth";
-import { BrandMark } from "@/components/BrandMark";
+import appIcon from "@/assets/grimorio-icon.png.asset.json";
 
 export function ConnectionBadge() {
   const [online, setOnline] = useState(true);
@@ -58,7 +58,13 @@ export function AppShell({
               <ArrowLeft className="size-5" />
             </button>
           ) : (
-            <BrandMark className="size-9 shrink-0" label="Grimorio Dev" />
+            <img
+              src={appIcon.url}
+              alt="Grimorio Dev"
+              className="size-9 shrink-0 rounded-lg"
+              width={36}
+              height={36}
+            />
           )}
           <div className="min-w-0 flex-1">
             <h1 className="truncate text-xl font-semibold">{title}</h1>
