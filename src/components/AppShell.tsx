@@ -58,13 +58,7 @@ export function AppShell({
               <ArrowLeft className="size-5" />
             </button>
           ) : (
-            <img
-              src={appIcon.url}
-              alt="Grimorio Dev"
-              className="size-9 shrink-0 rounded-lg"
-              width={36}
-              height={36}
-            />
+            <BrandMark className="size-9 shrink-0" label="Grimorio Dev" />
           )}
           <div className="min-w-0 flex-1">
             <h1 className="truncate text-xl font-semibold">{title}</h1>
