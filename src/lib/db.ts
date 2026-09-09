@@ -80,7 +80,7 @@ function recipeRow(draft: RecipeDraft, ownerId: string) {
     subcategory: draft.subcategory,
     keywords: draft.keywords,
     instructions: draft.instructions,
-    video_links: draft.video_links ?? [],
+    video_links: (draft.video_links ?? []).map((v) => v.trim()).filter(Boolean),
     image_url: draft.image_url,
     status: draft.status,
     origin_type: draft.origin_type,
