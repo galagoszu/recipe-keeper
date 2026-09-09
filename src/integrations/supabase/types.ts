@@ -161,6 +161,7 @@ export type Database = {
           subcategory: string
           title: string
           updated_at: string
+          video_links: string[]
         }
         Insert: {
           category?: string
@@ -181,6 +182,7 @@ export type Database = {
           subcategory?: string
           title: string
           updated_at?: string
+          video_links?: string[]
         }
         Update: {
           category?: string
@@ -201,6 +203,7 @@ export type Database = {
           subcategory?: string
           title?: string
           updated_at?: string
+          video_links?: string[]
         }
         Relationships: []
       }
