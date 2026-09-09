@@ -1,6 +1,6 @@
 import { createFileRoute, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
-import { LogOut, Save } from "lucide-react";
+import { BookOpen, LogOut, Save } from "lucide-react";
 import { toast } from "sonner";
 
 import { AppShell } from "@/components/AppShell";
@@ -151,6 +151,15 @@ function ProfilePage() {
             Cambiar contraseña
           </Button>
         </section>
+
+        <Button
+          variant="outline"
+          className="h-12 w-full text-base"
+          onClick={() => navigate({ to: "/" })}
+        >
+          <BookOpen className="size-5" />
+          Volver a {profile?.book_name || "mi recetario"}
+        </Button>
 
         <ConfirmDialog
           title="¿Cerrar sesión?"
