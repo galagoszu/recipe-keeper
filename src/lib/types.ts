@@ -24,6 +24,7 @@ export interface Recipe {
   subcategory: string;
   keywords: string[];
   instructions: string;
+  video_links: string[];
   image_url: string | null;
   status: RecipeStatus;
   origin_type: OriginType;
@@ -43,6 +44,7 @@ export interface RecipeDraft {
   subcategory: string;
   keywords: string[];
   instructions: string;
+  video_links: string[];
   image_url: string | null;
   status: RecipeStatus;
   origin_type: OriginType;
@@ -76,6 +78,7 @@ export function emptyDraft(): RecipeDraft {
     subcategory: "",
     keywords: [],
     instructions: "",
+    video_links: [],
     image_url: null,
     status: "listo",
     origin_type: "propia",
