@@ -26,6 +26,7 @@ export function recipeToPlainText(recipe: {
   subcategory: string;
   keywords: string[];
   instructions: string;
+  video_links?: string[];
   ingredients: Ingredient[];
   comments: { entry_date: string; body: string }[];
   original_author_name: string;
@@ -53,6 +54,11 @@ export function recipeToPlainText(recipe: {
   }
   if (recipe.instructions.trim()) {
     out.push("", "PREPARACIÓN", "", recipe.instructions.trim());
+  }
+  const videos = (recipe.video_links ?? []).filter((v) => v.trim());
+  if (videos.length) {
+    out.push("", "VIDEOS", "");
+    videos.forEach((v) => out.push(`• ${v.trim()}`));
   }
   if (recipe.comments.length) {
     out.push("", "MIS COMENTARIOS", "");
@@ -89,6 +95,7 @@ export function toArkRecipe(recipe: FullRecipe, sharedBy: string) {
     keywords: recipe.keywords,
     description: recipe.description,
     instructions: recipe.instructions,
+    video_links: recipe.video_links ?? [],
     ingredients: recipe.ingredients.map((i) => ({
       q: i.quantity,
       u: i.unit,
@@ -131,6 +138,9 @@ export function parseArkRecipe(raw: string): ArkParseResult {
   draft.subcategory = String(json["subcategory"] ?? "");
   draft.keywords = Array.isArray(json["keywords"]) ? (json["keywords"] as string[]) : [];
   draft.instructions = String(json["instructions"] ?? "");
+  draft.video_links = Array.isArray(json["video_links"])
+    ? (json["video_links"] as string[]).map((v) => String(v))
+    : [];
   draft.origin_type = "compartida";
   draft.original_author_name = String(json["original_author_name"] ?? "Desconocido");
   draft.original_author_id = (json["original_author_id"] as string) ?? null;

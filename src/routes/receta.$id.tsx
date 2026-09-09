@@ -1,6 +1,6 @@
 import { createFileRoute, Link, useNavigate, useParams } from "@tanstack/react-router";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { Copy, Download, Pencil, Share2, Trash2 } from "lucide-react";
+import { Copy, Download, Pencil, Play, Share2, Trash2 } from "lucide-react";
 import { toast } from "sonner";
 
 import { AppShell } from "@/components/AppShell";
@@ -201,6 +201,29 @@ function RecipeDetail() {
             <p className="reading whitespace-pre-line text-sm leading-relaxed">
               {recipe.instructions}
             </p>
+          </section>
+        ) : null}
+
+        {(recipe.video_links ?? []).filter((v) => v.trim()).length ? (
+          <section className="space-y-2">
+            <h2 className="text-base font-semibold">Videos</h2>
+            <ul className="divide-y rounded-xl border bg-card">
+              {(recipe.video_links ?? [])
+                .filter((v) => v.trim())
+                .map((v, index) => (
+                  <li key={index}>
+                    <a
+                      href={v}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 px-3 py-3 text-sm text-primary underline-offset-2 hover:underline"
+                    >
+                      <Play className="size-4 shrink-0" />
+                      <span className="truncate">{v}</span>
+                    </a>
+                  </li>
+                ))}
+            </ul>
           </section>
         ) : null}
 

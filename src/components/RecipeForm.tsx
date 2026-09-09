@@ -231,6 +231,55 @@ export function RecipeForm({
       </section>
 
       <section className="space-y-2">
+        <h2 className="text-base font-semibold">Videos</h2>
+        <p className="text-xs text-muted-foreground">
+          Pega el enlace del video de la receta. Puedes agregar más de uno.
+        </p>
+        {(draft.video_links.length ? draft.video_links : [""]).map((link, index) => (
+          <div key={index} className="flex gap-2">
+            <Input
+              type="url"
+              inputMode="url"
+              placeholder="https://www.youtube.com/watch?v=…"
+              aria-label={`Enlace de video ${index + 1}`}
+              value={link}
+              onChange={(e) => {
+                const next = draft.video_links.length ? [...draft.video_links] : [""];
+                next[index] = e.target.value;
+                set("video_links", next);
+              }}
+            />
+            {draft.video_links.length > 1 ? (
+              <Button
+                type="button"
+                variant="outline"
+                className="shrink-0 text-destructive"
+                aria-label="Quitar enlace de video"
+                onClick={() =>
+                  set(
+                    "video_links",
+                    draft.video_links.filter((_, i) => i !== index),
+                  )
+                }
+              >
+                <Trash2 className="size-4" />
+              </Button>
+            ) : null}
+          </div>
+        ))}
+        <Button
+          type="button"
+          variant="outline"
+          size="sm"
+          onClick={() =>
+            set("video_links", [...(draft.video_links.length ? draft.video_links : [""]), ""])
+          }
+        >
+          <Plus className="size-4" /> Agregar otro video
+        </Button>
+      </section>
+
+      <section className="space-y-2">
         <h2 className="text-base font-semibold">Mis comentarios</h2>
         <ul className="space-y-2">
           {draft.comments.map((c, index) => (

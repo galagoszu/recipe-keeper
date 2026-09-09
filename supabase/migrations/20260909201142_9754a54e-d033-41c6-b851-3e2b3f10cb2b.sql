@@ -1,0 +1,1 @@
+ALTER TABLE public.recipes ADD COLUMN IF NOT EXISTS video_links text[] NOT NULL DEFAULT '{}'::text[];
