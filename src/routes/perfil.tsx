@@ -152,6 +152,15 @@ function ProfilePage() {
           </Button>
         </section>
 
+        <Button
+          variant="outline"
+          className="h-12 w-full text-base"
+          onClick={() => navigate({ to: "/" })}
+        >
+          <BookOpen className="size-5" />
+          Volver a {profile?.book_name || "mi recetario"}
+        </Button>
+
         <ConfirmDialog
           title="¿Cerrar sesión?"
           description="Tus recetas quedan guardadas en la nube."
